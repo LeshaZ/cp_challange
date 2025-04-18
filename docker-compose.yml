@@ -1,0 +1,61 @@
+version: "3.8"
+
+networks:
+  def_network:
+    driver: bridge
+    name: def_network
+
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "8080:80"
+    volumes:
+      - ./nginx/nginx.conf:/etc/nginx/conf.d/default.conf
+    depends_on:
+      - api_service
+    networks:
+      - def_network
+
+  api_service:
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    container_name: api_service
+    environment:
+      - QUEUE_CONNECTION=redis
+      - REDIS_HOST=redis
+    expose:
+      - "9000"
+    volumes:
+      - ./api:/var/www/app:delegated
+    networks:
+      - def_network
+
+  auth_service:
+    build:
+      context: ./auth
+      dockerfile: ./Dockerfile
+    container_name: auth_service
+    volumes:
+      - ./auth:/var/www/app:delegated
+    expose:
+      - "9000"
+    environment:
+      - QUEUE_CONNECTION=redis
+      - REDIS_HOST=redis
+    networks:
+      - def_network
+    depends_on:
+      - redis
+
+  redis:
+    image: redis:alpine
+    container_name: redis
+    ports:
+      - "6379:6379"
+    networks:
+      - def_network
