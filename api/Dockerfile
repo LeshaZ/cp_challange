@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y \
     zlib1g-dev \
     libzip-dev \
     unzip \
+    iputils-ping \
+    netcat-traditional \
     && docker-php-ext-configure gd --with-freetype --with-jpeg \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install zip
@@ -20,9 +22,9 @@ WORKDIR /var/www/app
 # install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-# copy composer.json to workdir & install dependencies
-COPY composer.json ./
-RUN composer install
+# install dependencies
+RUN composer install --no-interaction --optimize-autoloader
+RUN php artisan l5-swagger:generate
 
 # Set the default command to run php-fpm
 CMD ["php-fpm"]

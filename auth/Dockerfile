@@ -1,17 +1,27 @@
+# use PHP 8.2
 FROM php:8.2-fpm
 
+# Install common php extension dependencies
 RUN apt-get update && apt-get install -y \
-    git curl zip unzip libzip-dev libpq-dev libonig-dev net-tools\
-    && docker-php-ext-install pdo pdo_mysql zip
+    libfreetype-dev \
+    libjpeg62-turbo-dev \
+    libpng-dev \
+    zlib1g-dev \
+    libzip-dev \
+    unzip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd \
+    && docker-php-ext-install zip
 
+# Set the working directory
+COPY . /var/www/app
+WORKDIR /var/www/app
+
+# install composer
 COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
-WORKDIR /var/www/html
+# install dependencies
+RUN composer install --no-interaction --optimize-autoloader
 
-COPY . .
-
-RUN composer install --no-interaction
-
-EXPOSE 9000
-
+# Set the default command to run php-fpm
 CMD ["php-fpm"]

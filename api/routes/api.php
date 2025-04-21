@@ -1,6 +1,7 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ChargingController;
+use Illuminate\Support\Facades\Route;
 
-Route::post('/start-charging', [ChargingController::class, 'startCharging']);
+//Route::post('start-charging', [ChargingController::class, 'startCharging']);
+

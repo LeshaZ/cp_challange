@@ -1,0 +1,28 @@
+{
+    "openapi": "3.0.0",
+    "info": {
+        "title": "Api Documentation",
+        "version": "1"
+    },
+    "servers": [
+        {
+            "url": "http://localhost\"8080/api",
+            "description": "Local documentation"
+        }
+    ],
+    "paths": {
+        "/api/users": {
+            "get": {
+                "operationId": "f8ccf3b95b3fc4d5373682fb564c7139",
+                "responses": {
+                    "200": {
+                        "description": "OK"
+                    },
+                    "400": {
+                        "description": "Not allowed"
+                    }
+                }
+            }
+        }
+    }
+}
