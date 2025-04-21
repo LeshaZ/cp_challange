@@ -4,22 +4,46 @@
         "title": "Api Documentation",
         "version": "1"
     },
-    "servers": [
-        {
-            "url": "http://localhost\"8080/api",
-            "description": "Local documentation"
-        }
-    ],
     "paths": {
-        "/api/users": {
-            "get": {
-                "operationId": "f8ccf3b95b3fc4d5373682fb564c7139",
+        "/api/start-charging": {
+            "post": {
+                "operationId": "602485f2e87344500365f7276c5564ba",
+                "requestBody": {
+                    "description": "Request body containing the parameters",
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "station_id",
+                                    "driver_token",
+                                    "callback_url"
+                                ],
+                                "properties": {
+                                    "station_id": {
+                                        "description": "UUID of the charging station",
+                                        "type": "string"
+                                    },
+                                    "driver_token": {
+                                        "description": "Driver token (20-80 characters)",
+                                        "type": "string"
+                                    },
+                                    "callback_url": {
+                                        "description": "Callback URL for async response",
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
-                        "description": "OK"
+                        "description": "OK. Request is being processed asynchronously. The result will be sent to the provided callback URL."
                     },
                     "400": {
-                        "description": "Not allowed"
+                        "description": "Bad request. Invalid input data."
                     }
                 }
             }

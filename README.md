@@ -18,7 +18,13 @@ install it.
 - Enter cp_challenge folder and run `docker-compose.yml -p cp_challange up -d`
 - Use some tool to send POST request to `http://localhost:8080/api/start-charging` with appropriate data.
 
+## Documentation
+
+- Follow [this link](http://localhost:8080/api/documentation) to see swagger documentation
+
 ## Tradeoffs (should not be in production solution)
 
 - .env file was added to the git repository to simplify installation process
 - Laravel debug mode was enabled to simplify development process
+
+

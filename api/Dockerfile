@@ -15,6 +15,8 @@ RUN apt-get update && apt-get install -y \
     && docker-php-ext-install -j$(nproc) gd \
     && docker-php-ext-install zip
 
+RUN pecl install redis && docker-php-ext-enable redis
+
 # Set the working directory
 COPY . /var/www/app
 WORKDIR /var/www/app
@@ -24,7 +26,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 
 # install dependencies
 RUN composer install --no-interaction --optimize-autoloader
-RUN php artisan l5-swagger:generate
+RUN php artisan l5-swagger:generate && php artisan route:cache
 
 # Set the default command to run php-fpm
 CMD ["php-fpm"]
