@@ -57,7 +57,7 @@ services:
     environment:
       - QUEUE_CONNECTION=redis
       - REDIS_HOST=redis
-    command: bash -c "php artisan redis:start-charging:subscribe"
+    command: bash -c "php artisan migrate --force && php artisan redis:start-charging:subscribe"
     networks:
       - def_network
     depends_on:
