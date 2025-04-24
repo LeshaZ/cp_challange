@@ -31,6 +31,10 @@
                                     "callback_url": {
                                         "description": "Callback URL for async response",
                                         "type": "string"
+                                    },
+                                    "timeout": {
+                                        "description": "Callback URL for async response",
+                                        "type": "integer"
                                     }
                                 },
                                 "type": "object"

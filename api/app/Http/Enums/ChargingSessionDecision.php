@@ -1,8 +1,8 @@
 <?php
 
-namespace App\Enums;
+namespace App\Http\Enums;
 
-enum ResponseStatusEnum: string
+enum ChargingSessionDecision: string
 {
     case ALLOWED = 'allowed';
     case NOT_ALLOWED = 'not_allowed';

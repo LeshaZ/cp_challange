@@ -27,6 +27,7 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # install dependencies
 RUN composer install --no-interaction --optimize-autoloader
 RUN php artisan l5-swagger:generate && php artisan route:cache
+RUN composer dump-autoload
 
 # Set the default command to run php-fpm
 CMD ["php-fpm"]

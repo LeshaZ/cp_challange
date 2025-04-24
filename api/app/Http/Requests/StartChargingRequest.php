@@ -15,6 +15,7 @@ class StartChargingRequest extends FormRequest
             'station_id' => 'required|uuid',
             'driver_token' => 'required|string|regex:/^[A-Za-z0-9\-._~]{20,80}$/',
             'callback_url' => 'required|url',
+            'timeout' => 'integer|nullable',
         ];
     }
 

@@ -42,6 +42,7 @@ services:
       - def_network
 
   auth_service:
+    tty: true
     extra_hosts:
       - "host.docker.internal:host-gateway"
     build:
@@ -56,6 +57,7 @@ services:
     environment:
       - QUEUE_CONNECTION=redis
       - REDIS_HOST=redis
+    command: bash -c "php artisan redis:start-charging:subscribe"
     networks:
       - def_network
     depends_on:
