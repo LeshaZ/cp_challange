@@ -21,7 +21,7 @@ Make sure docker and docker compose already installed on your machine. If not, p
 visit [official documentation](https://docs.docker.com/engine/install/) to
 install it.
 
-- Enter cp_challenge folder and run `docker-compose.yml -p cp_challange up -d`
+- Enter cp_challenge folder and run `docker-compose.yml -p cp_challenge up -d`
 
 ## Documentation
 
